@@ -12,18 +12,18 @@ let scenario = 0;
 
 function pause() {
   paused = !paused;
-  instance.$data.paused = !instance.$data.paused;
+  instance.$data.paused = paused;
 }
 
 function next() {
-  if (scenario === scenarios.length - 1) return;
+  if (scenario === scenarios.length - 1) scenario = -1;
   scenario += 1;
   instance.$data.scenario = scenario;
   setupQue();
 }
 
 function prev() {
-  if (scenario === 0) return;
+  if (scenario === 0) scenario = scenarios.length;
   scenario -= 1;
   instance.$data.scenario = scenario;
   setupQue();
@@ -40,7 +40,9 @@ function setupQue() {
   while(instance.$data.code.length) instance.$data.code.pop();
   scenarios[scenario].toString().split('\n').forEach(line => {
     if (line.includes('que.push')) {
-      line = line.replace('que.push([i,j]);', 'grid[i][j] = true;');
+      line = line.replaceAll('que.push([i,j]);', 'grid[i][j] = true;');
+      line = line.replaceAll('que.push([_i,j]);', 'grid[_i][j] = true;');
+      line = line.replaceAll('que.push([i,_j]);', 'grid[i][_j] = true;');
     }
     instance.$data.code.push(line);
   });
@@ -72,6 +74,7 @@ function drawPrevGrids() {
   }
 }
 
+// notes(): fill grid square at coords (i,j)
 function fillGrid(coord) {
   if (!coord) return;
 
