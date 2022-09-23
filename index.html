@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2D Grid Traversals</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="./external/bulma.min.css">
+  <script src="./external/vue.global.prod.js"></script>
+
+  <style type="text/css">
+    pre {
+      padding: 0;
+      margin: 0;
+    }
+
+    .columns {
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+
+    .shell {
+      max-width: 420px;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero is-info">
+    <div class="hero-body">
+      <p class="title">
+        2D Grid Traversals
+      </p>
+      <p class="subtitle">
+        <a class="button is-link" href="https://github.com/rajasharan/2d-grid-traversals">
+          <span class="icon">
+            <img src="./external/github.svg" alt="github link">
+          </span>
+          <span>Github Repo</span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <div class="columns" id="app">
+    <div class="shell column">
+      <div id="sketch"></div>
+      <nav class="level is-mobile">
+        <p class="level-item has-text-centered">
+          <a @click="prev">
+            <span class="icon">
+              <img src="./external/skip-previous-outline.svg" alt="Previous">
+            </span>
+          </a>
+        </p>
+
+        <p class="level-item has-text-centered">
+          <a @click="pause">
+            <span class="icon">
+              <img v-if="this.paused" src="./external/play-circle-outline.svg" alt="Play">
+              <img v-else src="./external/pause-circle-outline.svg" alt="Pause">
+            </span>
+          </a>
+        </p>
+
+        <p class="level-item has-text-centered">
+          <a @click="next">
+            <span class="icon">
+              <img src="./external/skip-next-outline.svg" alt="Next">
+            </span>
+          </a>
+        </p>
+      </nav>
+    </div>
+
+    <div class="column" id="code">
+      <div class="heading title is-6">Scenario: {{scenario}}</div>
+      <pre><code><div v-for="(line, i) in code" :key="i">{{line}}</div></code></pre>
+    </div>
+  </div>
+
+  <script src="./external/p5.min.js"></script>
+  <script src="./scenarios.js"></script>
+  <script src="./vue.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
